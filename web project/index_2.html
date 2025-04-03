@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Weight Calculation for Dimensions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e6ffe6;
+            border: 1px solid #00b300;
+            border-radius: 4px;
+            display: none;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Body Weight Calculator</h1>
+        
+        <!-- Shape Selection -->
+        <div class="form-group">
+            <label for="shape">Select Shape:</label>
+            <select id="shape" onchange="updateForm()">
+                <option value="parallelogram">Parallelogram</option>
+                <option value="cylinder">Cylinder</option>
+            </select>
+        </div>
+
+        <!-- Parallelogram Form -->
+        <div id="parallelogram-form" class="shape-form">
+            <div class="form-group">
+                <label for="length">Length (cm):</label>
+                <input type="number" id="length" placeholder="Enter length in meters">
+            </div>
+            <div class="form-group">
+                <label for="width">Width (cm):</label>
+                <input type="number" id="width" placeholder="Enter width in meters">
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter height in meters">
+            </div>
+        </div>
+
+        <!-- Cylinder Form -->
+        <div id="cylinder-form" class="shape-form" style="display: none;">
+            <div class="form-group">
+                <label for="radius">Radius (cm):</label>
+                <input type="number" id="radius" placeholder="Enter radius in meters">
+            </div>
+            <div class="form-group">
+                <label for="height-cylinder">Height (cm):</label>
+                <input type="number" id="height-cylinder" placeholder="Enter height in meters">
+            </div>
+        </div>
+
+        <!-- Material Selection -->
+        <div class="form-group">
+            <label for="material">Select Material:</label>
+            <select id="material">
+                <option value="eisen">Eisen (Iron)</option>
+                <option value="aluminium">Aluminium</option>
+                <option value="kupfer">Kupfer (Copper)</option>
+            </select>
+        </div>
+
+        <button class="btn" onclick="calculateWeight()">Calculate Weight</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Densities (in kg/m³)
+        const densities = {
+            eisen: 7.87,       // Iron
+            aluminium: 2.70,   // Aluminium
+            kupfer: 8.96       // Copper
+        };
+
+        // Show/Hide Forms Based on Shape
+        function updateForm() {
+            const shape = document.getElementById("shape").value;
+            const parallelogramForm = document.getElementById("parallelogram-form");
+            const cylinderForm = document.getElementById("cylinder-form");
+
+            if (shape === "parallelogram") {
+                parallelogramForm.style.display = "block";
+                cylinderForm.style.display = "none";
+            } else if (shape === "cylinder") {
+                parallelogramForm.style.display = "none";
+                cylinderForm.style.display = "block";
+            }
+        }
+
+        // Calculate Volume and Weight
+        function calculateWeight() {
+            const shape = document.getElementById("shape").value;
+            const material = document.getElementById("material").value;
+            const density = densities[material];
+
+            let volume;
+
+            if (shape === "parallelogram") {
+                const length = parseFloat(document.getElementById("length").value);
+                const width = parseFloat(document.getElementById("width").value);
+                const height = parseFloat(document.getElementById("height").value);
+
+                if (isNaN(length) || isNaN(width) || isNaN(height)) {
+                    alert("Please enter all dimensions for the parallelogram.");
+                    return;
+                }
+
+                volume = length * width * height; // Volume formula for parallelogram
+            } else if (shape === "cylinder") {
+                const radius = parseFloat(document.getElementById("radius").value);
+                const height = parseFloat(document.getElementById("height-cylinder").value);
+
+                if (isNaN(radius) || isNaN(height)) {
+                    alert("Please enter all dimensions for the cylinder.");
+                    return;
+                }
+
+                volume = Math.PI * Math.pow(radius, 2) * height; // Volume formula for cylinder 
+            }
+
+            // Calculate Weight
+            const weight = volume * density;
+
+            // Display Result
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block";
+            resultDiv.textContent = `Material: ${material.charAt(0).toUpperCase() + material.slice(1)} 
+            | Volume: ${volume.toFixed(2)} cm³ 
+            | Weight: ${weight.toFixed(2)} g`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Werkzeuge</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 100pt;
+            padding: 0 5%;
+        }
+
+        .Stereo_Weight_Calculator,
+        .electrical_engineering_rule,
+        .math_rules{
+            text-align: center;
+        }
+
+        .Stereo_Weight_Calculator a{
+            text-align: left;
+        }
+
+        .electrical_engineering_rule {
+            text-align: right;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 1.2em;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            position: relative;
+        }
+        
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: transparent;
+            transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        a:hover {
+            transform: scale(1.1); 
+            background-color: aqua;
+        }
+        
+        a:hover::after {
+            width: 100%; 
+        }
+        
+        a:active {
+            transform: scale(0.3);
+            background-color: greenyellow; 
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Engineering Tools and Calculations - Arthur</h1>
+
+    <div class="container">
+        <div class="Body_Weight_Calculator">
+            <section>
+                <a style="color: blue;" href="index_2.html">Calculator</a>
+            </section>
+        </div>
+
+        <div class="electrical_engineering_rule">
+            <section>
+                <a style="color: grey;" href="index_3.html">Electrical engineering rules</a>
+            </section>
+        </div>
+
+        <div class="math_rules">
+            <section>
+                <a style="color: brown;" href="index_4.html">Math rules</a>
+            </section>
+        </div>
+
+        <div class="math_rules(trigonometry)">
+            <section>
+                <a style="color: red;" href="index_5.html">Math rules trigonometry</a>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
